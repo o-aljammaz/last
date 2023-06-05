@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Currency Table</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      border: 1px solid black;
+    }
+    th, td {
+      border: 1px solid black;
+    }
+  </style>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch('https://api.exchangerate.host/latest?base=USD')
+      .then(response => response.json())
+      .then(data => {
+        let table = document.createElement("table");
+        let thead = document.createElement("thead");
+        let tr = document.createElement("tr");
+        let th1 = document.createElement("th");
+        let th2 = document.createElement("th");
+        th1.innerText = "Currency";
+        th2.innerText = "Rate";
+        tr.appendChild(th1);
+        tr.appendChild(th2);
+        thead.appendChild(tr);
+        let tbody = document.createElement("tbody");
+        for (let key in data.rates) {
+          let tr = document.createElement("tr");
+          let td1 = document.createElement("td");
+          let td2 = document.createElement("td");
+          td1.innerText = key;
+          td2.innerText = data.rates;
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          tbody.appendChild(tr);
+          
+        }
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        document.body.appendChild(table);
+        
+      });
+    });
+  </script>
+</head>
+<body>
+</body>
+</html>
